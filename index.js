@@ -4,6 +4,11 @@ import { Book } from "./clases.js";
 window.onload = function(){
     var myBookList = new BookList();
 
+    let botonLista = document.getElementById("vista_lista");
+    let botonTarjetas = document.getElementById("vista_card");
+
+    botonLista.addEventListener("click", () => pintarListaLibros(myBookList));
+    botonTarjetas.addEventListener("click", () => pintarTarjetasLibros(myBookList));
 
     if(localStorage.getItem("bookList") != undefined){
         let lista = JSON.parse(localStorage.getItem("bookList"));
@@ -57,4 +62,36 @@ function pintarListaLibros(lista)
 
     document.getElementById("booksRead").innerHTML = lista.numberBooksRead + " of "+ lista.totalBooks;
     
+}
+
+
+function pintarTarjetasLibros(lista){
+    document.getElementById("readingList").innerHTML = "";
+    document.getElementById("readingList").style.display = "flex";
+    document.getElementById("readingList").style.flexWrap = "wrap";
+    
+    lista.books.forEach( (libro) =>{
+        let leido;
+
+        if (!libro.read)
+            leido="Not Read";
+        else
+        {
+            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+            leido="Read on " + libro.readDate.toLocaleDateString('en-EN', options);
+        }
+
+       //Añadir Libro en interfaz
+       let bookEntry = `<div class="card">
+       <div class="card-body">
+         <h5 class="card-title">${libro.title}</h5>
+         <h6 class="card-subtitle mb-2 text-muted">${libro.author}</h6>
+         <p class="card-text">${leido}</p>
+       </div>
+     </div>`;
+       
+          
+       document.getElementById("readingList").innerHTML += bookEntry;
+       
+})
 }

@@ -67,6 +67,23 @@
     color: #333;
     text-align: left;
     background-color: white; }
+
+    #vista_lista{
+        margin-bottom: 20px;
+    }
+
+    .botones_vista:hover{
+      color: white;
+      background-color: black;
+      transition: 0.2s;
+      cursor: pointer;
+    }
+
+    .card{
+      display: flex;
+      flex-flow: row wrap;
+      width: 18rem;
+    }
   
   [tabindex="-1"]:focus {
     outline: 0 !important; }
